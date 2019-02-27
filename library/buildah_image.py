@@ -195,12 +195,11 @@ def_qf = "%{name}-%{version}-%{release}.%{arch}"
 rpmbin = None
 
 
-def buildah_list_images ( module, name, json, truncate ):
-    
+def buildah_list_images ( module, name, json, truncate, digests, format, filter, heading ):
+
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
-    
-    buildah_basecmd = [buildah_bin, 'images']
+        buildah_basecmd = [buildah_bin, 'images']
 
     if json:
         r_cmd = ['--json']
@@ -210,6 +209,20 @@ def buildah_list_images ( module, name, json, truncate ):
         r_cmd = ['--no-trunc']
         buildah_basecmd.extend(r_cmd)
 
+    if format != "":
+        r_cmd = ['--format']
+        buildah_basecmd.extend(r_cmd)
+        r_cmd = "'{{.ID}} {{.Name}} {{.Digest}} {{.CreatedAt}} {{.Size}}'"
+        buildah_basecmd.extend(r_cmd)
+
+    if digests:
+        r_cmd = ['--digests']
+        buildah_basecmd.extend(r_cmd)
+
+    if heading:
+        r_cmd = ['--noheading']
+        buildah_basecmd.extend(r_cmd)
+        
     if name:
         r_cmd = [name]
         buildah_basecmd.extend(r_cmd)
@@ -225,6 +238,10 @@ def main():
             name=dict(required=True), 
             json=dict(required=False, default="no", type='bool'),
             truncate=dict(required=False, default="yes", type='bool'),
+            digests=dict(required=False, default="no", type='bool'),
+            format=dict(required=False, default=""),
+            filter=dict(required=False, default=""),
+            heading=dict(required=False, default="yes")
         ),
         required_one_of = [['name','str']],
         mutually_exclusive = [['name','str']],
@@ -236,8 +253,13 @@ def main():
     id = params.get('name', '') 
     json = params.get('json', '')
     truncate = params.get('truncate', '')
+    digests = params.get('digests', '')
+    format = params.get('format', '')
+    filter = params.get('filter', '')
+    heading = params.get('heading', '')
+    
+    rc, out, err =  buildah_list_images(module, id, json, truncate, digests, format, filter, heading)
 
-    rc, out, err =  buildah_list_images(module, id, json, truncate)
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
     else:

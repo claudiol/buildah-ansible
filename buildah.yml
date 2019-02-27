@@ -25,3 +25,25 @@
     register: result
 
   - debug: var=result.stdout_lines
+
+# #######################  DOES NOT WORK YET ###################################
+#   - name: BUILDAH | Test output of "buildah images <FORMAT> <image_name>" command
+#     buildah_image:
+#       name: docker.io/library/fedora
+#       format: 'ID: {{.ID}} Name: {{.Name}} Digest: {{.Digest}} Created: {{.CreatedAt}} Size: {{.Size}}'
+#     register: result
+#     tags:
+#       - go
+
+#   - debug: var=result.stdout_lines
+#     tags:
+#       - go
+# #######################  DOES NOT WORK YET ###################################
+
+  - name: BUILDAH | Test output of "buildah images --noheading <image_name>" command
+    buildah_image:
+      name: docker.io/library/fedora
+      heading: no
+    register: result
+
+  - debug: var=result.stdout_lines
