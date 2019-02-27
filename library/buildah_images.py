@@ -42,110 +42,11 @@ description:
 options:
 
 
-
-
-  name:
-    description:
-      - "Package name, or package specifier with version, like C(name-1.0). When using state=latest, this can be '*' which means run: yum -y update. You can also pass a url or a local path to a rpm file (using state=present).  To operate on several packages this can accept a comma separated list of packages or (as of 2.0) a list of packages."
-    required: true
-    default: null
-    aliases: [ 'pkg' ]
-  exclude:
-    description:
-      - "Package name(s) to exclude when state=present, or latest"
-    required: false
-    version_added: "2.0"
-    default: null
-  list:
-    description:
-      - Various (non-idempotent) commands for usage with C(/usr/bin/ansible) and I(not) playbooks. See examples.
-    required: false
-    default: null
-  state:
-    description:
-      - Whether to install (C(present) or C(installed), C(latest)), or remove (C(absent) or C(removed)) a package.
-    required: false
-    choices: [ "present", "installed", "latest", "absent", "removed" ]
-    default: "present"
-  enablerepo:
-    description:
-      - I(Repoid) of repositories to enable for the install/update operation.
-        These repos will not persist beyond the transaction.
-        When specifying multiple repos, separate them with a ",".
-    required: false
-    version_added: "0.9"
-    default: null
-    aliases: []
-  disablerepo:
-    description:
-      - I(Repoid) of repositories to disable for the install/update operation.
-        These repos will not persist beyond the transaction.
-        When specifying multiple repos, separate them with a ",".
-    required: false
-    version_added: "0.9"
-    default: null
-    aliases: []
-  conf_file:
-    description:
-      - The remote yum configuration file to use for the transaction.
-    required: false
-    version_added: "0.6"
-    default: null
-    aliases: []
-  disable_gpg_check:
-    description:
-      - Whether to disable the GPG checking of signatures of packages being
-        installed. Has an effect only if state is I(present) or I(latest).
-    required: false
-    version_added: "1.2"
-    default: "no"
-    choices: ["yes", "no"]
-    aliases: []
-  update_cache:
-    description:
-      - Force updating the cache. Has an effect only if state is I(present)
-        or I(latest).
-    required: false
-    version_added: "1.9"
-    default: "no"
-    choices: ["yes", "no"]
-    aliases: []
-  validate_certs:
-    description:
-      - This only applies if using a https url as the source of the rpm. e.g. for localinstall. If set to C(no), the SSL certificates will not be validated.
-      - This should only set to C(no) used on personally controlled sites using self-signed certificates as it avoids verifying the source site.
-      - Prior to 2.1 the code worked as if this was set to C(yes).
-    required: false
-    default: "yes"
-    choices: ["yes", "no"]
-    version_added: "2.1"
-notes:
-  - When used with a loop of package names in a playbook, ansible optimizes
-    the call to the yum module.  Instead of calling the module with a single
-    package each time through the loop, ansible calls the module once with all
-    of the package names from the loop.
-  - In versions prior to 1.9.2 this module installed and removed each package
-    given to the yum module separately. This caused problems when packages
-    specified by filename or url had to be installed or removed together. In
-    1.9.2 this was fixed so that packages are installed in one yum
-    transaction. However, if one of the packages adds a new yum repository
-    that the other packages come from (such as epel-release) then that package
-    needs to be installed in a separate task. This mimics yum's command line
-    behaviour.
-  - 'Yum itself has two types of groups.  "Package groups" are specified in the
-    rpm itself while "environment groups" are specified in a separate file
-    (usually by the distribution).  Unfortunately, this division becomes
-    apparent to ansible users because ansible needs to operate on the group
-    of packages in a single transaction and yum requires groups to be specified
-    in different ways when used in that way.  Package groups are specified as
-    "@development-tools" and environment groups are "@^gnome-desktop-environment".
-    Use the "yum group list" command to see which category of group the group
-    you want to install falls into.'
 # informational: requirements for nodes
-requirements: [ yum ]
+requirements: [ buildah ]
 author:
-    - "Ansible Core Team"
-    - "Seth Vidal"
+    - "Red Hat Consulting (NAPS)"
+    - "Lester Claudio"
 '''
 
 EXAMPLES = '''
