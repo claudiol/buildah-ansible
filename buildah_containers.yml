@@ -1,0 +1,51 @@
+- hosts: buildah
+  become: yes
+
+  tasks:
+  - name: BUILDAH | Test output of "buildah containers " command
+    buildah_containers:
+      truncate: yes
+    register: result
+
+  - debug: var=result.stdout_lines
+
+  - name: BUILDAH | Test JSON output of "buildah containers --json " command
+    buildah_containers:
+      json: yes
+    register: result
+
+  - debug: var=result.stdout_lines
+
+  - name: BUILDAH | Test output of "buildah containers --notruncate" command
+    buildah_containers:
+      truncate: no
+    register: result
+
+  - debug: var=result.stdout_lines
+
+# #######################  DOES NOT WORK YET ###################################
+#   - name: BUILDAH | Test output of "buildah containers <FORMAT> " command
+#     buildah_containers:
+#       name: docker.io/library/fedora
+#       format: 'ID: {{.ID}} Name: {{.Name}} Digest: {{.Digest}} Created: {{.CreatedAt}} Size: {{.Size}}'
+#     register: result
+#     tags:
+#       - go
+
+#   - debug: var=result.stdout_lines
+#     tags:
+#       - go
+# #######################  DOES NOT WORK YET ###################################
+
+  - name: BUILDAH | Test output of "buildah containers --noheading " command
+    buildah_containers:
+      heading: no
+    register: result
+
+  - debug: var=result.stdout_lines
+
+  - name: BUILDAH | Test output of ALL "buildah containers" command
+    buildah_containers:
+    register: result
+
+  - debug: var=result.stdout_lines
