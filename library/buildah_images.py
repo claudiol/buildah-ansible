@@ -150,7 +150,7 @@ author:
 
 EXAMPLES = '''
   - name: BUILDAH | Test output of "buildah images <image_name>" command
-    buildah_image:
+    buildah_images:
       name: docker.io/library/fedora
       truncate: yes
     register: result
@@ -158,7 +158,7 @@ EXAMPLES = '''
   - debug: var=result.stdout_lines
 
   - name: BUILDAH | Test JSON output of "buildah images --json <image_name>" command
-    buildah_image:
+    buildah_images:
       name: docker.io/library/fedora
       json: yes
     register: result
@@ -166,7 +166,7 @@ EXAMPLES = '''
   - debug: var=result.stdout_lines
 
   - name: BUILDAH | Test output of "buildah images --no-trunc <image_name>" command
-    buildah_image:
+    buildah_images:
       name: docker.io/library/fedora
       truncate: no
     register: result
@@ -174,7 +174,7 @@ EXAMPLES = '''
   - debug: var=result.stdout_lines
 
   - name: BUILDAH | Test output of "buildah images --noheading <image_name>" command
-    buildah_image:
+    buildah_images:
       name: docker.io/library/fedora
       heading: no
     register: result
@@ -182,14 +182,6 @@ EXAMPLES = '''
   - debug: var=result.stdout_lines
 
 '''
-
-# 64k.  Number of bytes to read at a time when manually downloading pkgs via a url
-BUFSIZE = 65536
-
-def_qf = "%{name}-%{version}-%{release}.%{arch}"
-rpmbin = None
-
-
 def buildah_list_images ( module, name, json, truncate, digests, format, filter, heading ):
 
     if module.get_bin_path('buildah'):
