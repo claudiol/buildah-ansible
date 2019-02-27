@@ -1,0 +1,10 @@
+- hosts: buildah
+  gather_facts: yes
+  become: true
+
+  tasks:
+    - name: Install buildah
+      yum:
+         name: buildah
+         state: present
+
