@@ -70,7 +70,7 @@ def buildah_config(module, name, annotation, arch, author, cmd,
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
-        buildah_basecmd = [buildah_bin, 'add']
+        buildah_basecmd = [buildah_bin, 'config']
 
     if annotation:
         r_cmd = ['--annotation']
