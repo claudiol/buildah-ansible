@@ -1,0 +1,13 @@
+- hosts: buildah
+  become: yes
+
+  tasks:
+  - name: BUILDAH | Test output of "buildah add " command
+    buildah_add:
+      name: 32282b25dcb9
+      src: lester.txt
+      dest: /tmp/lester.txt
+    register: result
+
+  - debug: var=result.stdout_lines
+
