@@ -41,7 +41,6 @@ description:
      - Creates, removes, and lists OCI containers using the buildah container manager. 
 options:
 
-
 # informational: requirements for nodes
 requirements: [ buildah ]
 author:
@@ -50,72 +49,63 @@ author:
 '''
 
 EXAMPLES = '''
-  - name: BUILDAH | Test output of "buildah images <image_name>" command
-    buildah_images:
-      name: docker.io/library/fedora
+  - name: BUILDAH | Test output of "buildah add <image_name>" command
+    buildah_add:
       truncate: yes
     register: result
 
   - debug: var=result.stdout_lines
 
-  - name: BUILDAH | Test JSON output of "buildah images --json <image_name>" command
-    buildah_images:
-      name: docker.io/library/fedora
+  - name: BUILDAH | Test JSON output of "buildah add --json <image_name>" command
+    buildah_add:
       json: yes
     register: result
 
   - debug: var=result.stdout_lines
 
-  - name: BUILDAH | Test output of "buildah images --no-trunc <image_name>" command
-    buildah_images:
-      name: docker.io/library/fedora
+  - name: BUILDAH | Test output of "buildah add --notruncate <image_name>" command
+    buildah_add:
       truncate: no
     register: result
 
   - debug: var=result.stdout_lines
 
-  - name: BUILDAH | Test output of "buildah images --noheading <image_name>" command
-    buildah_images:
-      name: docker.io/library/fedora
+  - name: BUILDAH | Test output of "buildah add --noheading <image_name>" command
+    buildah_add:
       heading: no
     register: result
 
   - debug: var=result.stdout_lines
 
 '''
-def buildah_list_images ( module, name, json, truncate, digests, format, filter, heading ):
+def buildah_add ( module, name, chown, quiet, src, dest ):
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
-        buildah_basecmd = [buildah_bin, 'images']
+        buildah_basecmd = [buildah_bin, 'add']
 
-    if json:
-        r_cmd = ['--json']
+    if chown:
+        r_cmd = ['--chown']
         buildah_basecmd.extend(r_cmd)
-
-    if truncate != True:
-        r_cmd = ['--no-trunc']
-        buildah_basecmd.extend(r_cmd)
-
-    if format != "":
-        r_cmd = ['--format']
-        buildah_basecmd.extend(r_cmd)
-        r_cmd = [format]
-        buildah_basecmd.extend(r_cmd)
-
-    if digests:
-        r_cmd = ['--digests']
-        buildah_basecmd.extend(r_cmd)
-
-    if heading:
-        r_cmd = ['--noheading']
+        r_cmd = [chown]
         buildah_basecmd.extend(r_cmd)
         
+    if quiet:
+        r_cmd = ['--quiet']
+        buildah_basecmd.extend(r_cmd)
+
     if name:
         r_cmd = [name]
-        buildah_basecmd.extend(r_cmd)
-        
+        buildah_basecmd.extend(r_cmd) 
 
+    if src:
+        r_cmd = [src]
+        buildah_basecmd.extend(r_cmd) 
+
+    if dest:
+        r_cmd = [dest]
+        buildah_basecmd.extend(r_cmd) 
+        
     return module.run_command(buildah_basecmd) 
 
 
@@ -123,30 +113,24 @@ def main():
 
     module = AnsibleModule(
         argument_spec = dict(
-            name=dict(required=True), 
-            json=dict(required=False, default="no", type='bool'),
-            truncate=dict(required=False, default="yes", type='bool'),
-            digests=dict(required=False, default="no", type='bool'),
-            format=dict(required=False, default=""),
-            filter=dict(required=False, default=""),
-            heading=dict(required=False, default="yes")
+            name=dict(required=True, default=""),
+            chown=dict(required=False, default=""),
+            quiet=dict(required=False, default="no", type="bool"),
+            src=dict(required=True, default=""),
+            dest=dict(required=True, default="")
         ),
-        required_one_of = [['name','str']],
-        mutually_exclusive = [['name','str']],
         supports_check_mode = True
     )
 
     params = module.params
-
-    id = params.get('name', '') 
-    json = params.get('json', '')
-    truncate = params.get('truncate', '')
-    digests = params.get('digests', '')
-    format = params.get('format', '')
-    filter = params.get('filter', '')
-    heading = params.get('heading', '')
+`
+    name = params.get('name', '')
+    chown = params.get('chown', '')
+    quiet = params.get('quiet', '')
+    src = params.get('src', '')
+    dest = params.get('dest', '')
     
-    rc, out, err =  buildah_list_images(module, id, json, truncate, digests, format, filter, heading)
+    rc, out, err =  buildah_add(module, name, chown, quiet, src, dest)
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
