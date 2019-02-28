@@ -113,17 +113,17 @@ def main():
 
     module = AnsibleModule(
         argument_spec = dict(
-            name=dict(required=True, default=""),
+            name=dict(required=True),
             chown=dict(required=False, default=""),
             quiet=dict(required=False, default="no", type="bool"),
-            src=dict(required=True, default=""),
-            dest=dict(required=True, default="")
+            src=dict(required=True),
+            dest=dict(required=True)
         ),
         supports_check_mode = True
     )
 
     params = module.params
-`
+
     name = params.get('name', '')
     chown = params.get('chown', '')
     quiet = params.get('quiet', '')
