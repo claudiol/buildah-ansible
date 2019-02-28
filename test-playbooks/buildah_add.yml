@@ -11,3 +11,13 @@
 
   - debug: var=result.stdout_lines
 
+  - name: BUILDAH | Test output of "buildah add --quiet " command
+    buildah_add:
+      name: 32282b25dcb9
+      src: HelloWorld.txt
+      dest: /tmp/HelloWorld.txt
+      quiet: yes
+    register: result
+
+  - debug: var=result.stdout_lines
+
