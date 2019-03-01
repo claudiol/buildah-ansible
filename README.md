@@ -26,7 +26,7 @@ The following modules are being developed:
 The targeted functionality planned will include the following:
 
 |    buildah command             | Description              | Status |
-|    ----------------            | -----------              |
+|    ----------------            | -----------              | ------ |
 |     add                        |  Add content to the container | TESTED |
 |     build-using-dockerfile, bud|  Build an image using instructions in a Dockerfile | NOT TESTED |
 |     commit                     |  Create an image from a working container | NOT TESTED |
