@@ -45,7 +45,7 @@ The targeted functionality planned will include the following:
 |     rm, delete                 |  Remove one or more working containers | NOT TESTED |
 |     rmi                        |  removes one or more images from local storage | NOT TESTED |
 |     tag                        |  Add an additional name to a local image | NOT TESTED |
-|     umount, unmount            |  Unmounts the root file system on the specified working containers | NOT IMPLEMENTED |
+|     umount, unmount            |  Unmounts the root file system on the specified working containers | NOT TESTED |
 |     unshare                    |  Run a command in a modified user namespace | NOT IMPLEMENTED |
 
 
