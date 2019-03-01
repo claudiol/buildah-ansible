@@ -19,6 +19,7 @@ The following modules are being developed:
  - buildah_inspect.py
 
 The targeted functionality planned will include the following:
+
 |    buildah command             | Description              |
 |    ----------------            | -----------              |
 |     add                        |  Add content to the container |
