@@ -91,7 +91,7 @@ def main():
     container_name = params.get('container_name', '')
     new_container_name = params.get('new_container_name', '')
     
-    rc, out, err =  buildah_pull ( module, container_name, new_container_name )
+    rc, out, err =  buildah_rename ( module, container_name, new_container_name )
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
