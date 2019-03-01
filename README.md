@@ -23,8 +23,7 @@ The targeted functionality planned will include the following:
 |    buildah command             | Description              |
 |    ----------------            | -----------              |
 |     add                        |  Add content to the container |
-|     build-using-dockerfile, bud|  Build an image using instructions in a |
-|                                |  Dockerfile |
+|     build-using-dockerfile, bud|  Build an image using instructions in a Dockerfile |
 |     commit                     |  Create an image from a working container |
 |     config                     |  Update image configuration settings |
 |     containers                 |  List working containers and their base images |
