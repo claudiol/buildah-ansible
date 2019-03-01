@@ -22,6 +22,8 @@ The following modules are being developed:
  - buildah_push.py
  - buildah_rename.py
  - buildah_rm.py
+ - buildah_rmi.py
+ - buildah_tag.py
 
 The targeted functionality planned will include the following:
 
@@ -41,9 +43,8 @@ The targeted functionality planned will include the following:
 |     push                       |  Push an image to a specified destination | NOT TESTED |
 |     rename                     |  Rename a container | NOT TESTED |
 |     rm, delete                 |  Remove one or more working containers | NOT TESTED |
-|     rmi                        |  removes one or more images from local storage | NOT IMPLEMENTED |
-|     run                        |  Run a command inside of the container | NOT IMPLEMENTED|
-|     tag                        |  Add an additional name to a local image | NOT IMPLEMENTED |
+|     rmi                        |  removes one or more images from local storage | NOT TESTED |
+|     tag                        |  Add an additional name to a local image | NOT TESTED |
 |     umount, unmount            |  Unmounts the root file system on the specified working containers | NOT IMPLEMENTED |
 |     unshare                    |  Run a command in a modified user namespace | NOT IMPLEMENTED |
 
