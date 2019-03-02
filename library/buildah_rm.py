@@ -34,11 +34,13 @@ ANSIBLE_METADATA = {'status': ['stableinterface'],
 
 DOCUMENTATION = '''
 ---
-module: buildah_rename
+module: buildah_rm
 version_added: historical
-short_description: Mount a working container's root filesystem
+short_description: Removes one or more working containers, unmounting them if necessary.
+
 description:
-     - Mount a working container's root filesystem.
+     - Removes one or more working containers, unmounting them if necessary.
+
 options:
 
 # informational: requirements for nodes

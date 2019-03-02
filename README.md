@@ -36,17 +36,17 @@ The targeted functionality planned will include the following:
 |     config                     |  Update image configuration settings | NOT TESTED |
 |     containers                 |  List working containers and their base images | TESTED |
 |     copy                       |  Copy content into the container | TESTED |
-|     from                       |  Create a working container based on an image | NOT TESTED |
+|     from                       |  Create a working container based on an image | TESTED |
 |     images                     |  List images in local storage | TESTED |
 |     inspect                    |  Inspects the configuration of a container or image | NOT TESTED |
 |     mount                      |  Mount a working container's root filesystem | NOT TESTED |
 |     pull                       |  Pull an image from the specified location | NOT TESTED |
 |     push                       |  Push an image to a specified destination | NOT TESTED |
 |     rename                     |  Rename a container | NOT TESTED |
-|     rm, delete                 |  Remove one or more working containers | NOT TESTED |
+|     rm, delete                 |  Remove one or more working containers | TESTED |
 |     rmi                        |  removes one or more images from local storage | NOT TESTED |
 |     tag                        |  Add an additional name to a local image | NOT TESTED |
-|     umount, unmount            |  Unmounts the root file system on the specified working containers | NOT TESTED |
+|     umount, unmount            |  Unmounts the root file system on the specified working containers | TESTED |
 |     unshare                    |  Run a command in a modified user namespace | NOT IMPLEMENTED |
 
 

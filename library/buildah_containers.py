@@ -2,7 +2,7 @@
 
 #!/usr/bin/python -tt
 # -*- coding: utf-8 -*-
-# (c) 2012, Red Hat, Inc
+# (c) 2019, Red Hat, Inc
 # Based on yum module written by Seth Vidal <skvidal at fedoraproject.org>
 # (c) 2014, Epic Games, Inc.
 # Written by Lester Claudio <claudiol at redhat.com>
@@ -34,11 +34,12 @@ ANSIBLE_METADATA = {'status': ['stableinterface'],
 
 DOCUMENTATION = '''
 ---
-module: buildah
+module: buildah_containers
 version_added: historical
-short_description: Allows the creation of Open Container Initiative (OCI) containers using the buildah command
+short_description: buildah-containers - List the working containers and their base images.
 description:
-     - Creates, removes, and lists OCI containers using the buildah container manager. 
+     - Lists  containers  which  appear to be Buildah working containers, their names and IDs, and
+       the names and IDs of the images from which they were initialized.
 options:
 
 # informational: requirements for nodes
@@ -78,7 +79,7 @@ EXAMPLES = '''
   - debug: var=result.stdout_lines
 
 '''
-def buildah_list_containers ( module, json, truncate, format, filter, heading ):
+def buildah_list_containers ( module, json, truncate, quiet, format, filter, heading ):
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
@@ -92,10 +93,20 @@ def buildah_list_containers ( module, json, truncate, format, filter, heading ):
         r_cmd = ['--notruncate']
         buildah_basecmd.extend(r_cmd)
 
+    if quiet:
+        r_cmd = ['--quiet']
+        buildah_basecmd.extend(r_cmd)
+
     if format != "":
         r_cmd = ['--format']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = "'{{.ID}} {{.Name}} {{.Digest}} {{.CreatedAt}} {{.Size}}'"
+        r_cmd = [format]
+        buildah_basecmd.extend(r_cmd)
+
+    if filter != "":
+        r_cmd = ['--filter']
+        buildah_basecmd.extend(r_cmd)
+        r_cmd = [filter]
         buildah_basecmd.extend(r_cmd)
 
     if heading:
@@ -111,6 +122,7 @@ def main():
         argument_spec = dict(
             json=dict(required=False, default="no", type='bool'),
             truncate=dict(required=False, default="yes", type='bool'),
+            quiet=dict(required=False, default="no", type='bool'),
             format=dict(required=False, default=""),
             filter=dict(required=False, default=""),
             heading=dict(required=False, default="yes")
@@ -122,11 +134,12 @@ def main():
 
     json = params.get('json', '')
     truncate = params.get('truncate', '')
+    quiet = params.get('quiet', '')
     format = params.get('format', '')
     filter = params.get('filter', '')
     heading = params.get('heading', '')
     
-    rc, out, err =  buildah_list_containers(module, json, truncate, format, filter, heading)
+    rc, out, err =  buildah_list_containers(module, json, truncate, quiet, format, filter, heading)
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )

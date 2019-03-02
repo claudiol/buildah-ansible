@@ -34,11 +34,12 @@ ANSIBLE_METADATA = {'status': ['stableinterface'],
 
 DOCUMENTATION = '''
 ---
-module: buildah_mount
+module: buildah_push
 version_added: historical
-short_description: Mount a working container's root filesystem
+short_description: Pushes an image from local storage to a specified destination, decompressing and recompessing layers as needed.
 description:
-     - Mount a working container's root filesystem.
+     - Pushes an image from local storage to a specified destination, decompressing and recompessing layers as needed.
+
 options:
 
 # informational: requirements for nodes
@@ -49,7 +50,7 @@ author:
 '''
 
 EXAMPLES = '''
-  - name: BUILDAH | Test output of "buildah add <image_name>" command
+  - name: BUILDAH | Test output of "buildah push <image_name>" command
     buildah_push:
       name: IMAGE
       quiet: yes

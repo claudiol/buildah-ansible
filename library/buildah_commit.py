@@ -36,10 +36,11 @@ DOCUMENTATION = '''
 ---
 module: buildah_commit
 version_added: historical
-short_description:    Writes a new image using the container's read-write layer and, if it is based on an image, the layers of that image
+short_description:   buildah-commit - Create an image from a working container.
 
 description:
-   buildah commit - Create an image from a working container
+   buildah-commit - Create an image from a working container. Writes  a  new image using the specified container's read-write layer and if it is based on an image, the layers of that image.  If image does not begin with a registry name component, localhost will be added to the name.
+
 
 options:
 
@@ -54,7 +55,10 @@ author:
 EXAMPLES = '''
 
   - name: BUILDAH | Test output of "buildah add --noheading <image_name>" command
-    buildah_add:
+    buildah_commit:
+      container: fedora-working-container
+      imgname: docker://localhost:5000/fedora-claudiol
+      creds: username:password
       heading: no
     register: result
 
