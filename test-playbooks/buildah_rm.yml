@@ -1,0 +1,22 @@
+- hosts: buildah
+  become: yes
+
+  tasks:
+  - name: BUILDAH | Test output of "buildah rm using container ID" command
+    buildah_rm:
+      name: 20c42e077437
+    register: result
+
+  - debug: var=result
+
+  - name: BUILDAH | Test output of "buildah rm using all option" command
+    buildah_rm:
+      all: yes
+    register: result
+
+  - debug: var=result
+
+
+
+
+
