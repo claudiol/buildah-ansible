@@ -1,0 +1,20 @@
+- hosts: buildah
+  become: yes
+
+  tasks:
+  - name: BUILDAH | Test output of "buildah inspect <image_id>" command
+    buildah_inspect:
+      name: d7372e6c93c6
+      type: image
+    register: result
+
+  - debug: var=result.stdout_lines
+
+  - name: BUILDAH | Test output of "buildah inspect <container_id>" command
+    buildah_inspect:
+      name: 8c85c9fab053
+      type: container
+    register: result
+
+  - debug: var=result.stdout_lines
+
