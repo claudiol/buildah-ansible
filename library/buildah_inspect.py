@@ -97,7 +97,7 @@ def main():
     params = module.params
 
     name = params.get('name', '')
-    formay = params.get('format', '')
+    format = params.get('format', '')
     type = params.get('type', '')
     
     rc, out, err =  buildah_inspect(module, name, format, type)
