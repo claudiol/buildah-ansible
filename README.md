@@ -38,8 +38,8 @@ The targeted functionality planned will include the following:
 |     copy                       |  Copy content into the container | TESTED |
 |     from                       |  Create a working container based on an image | TESTED |
 |     images                     |  List images in local storage | TESTED |
-|     inspect                    |  Inspects the configuration of a container or image | NOT TESTED |
-|     mount                      |  Mount a working container's root filesystem | NOT TESTED |
+|     inspect                    |  Inspects the configuration of a container or image | TESTED |
+|     mount                      |  Mount a working container's root filesystem | TESTED |
 |     pull                       |  Pull an image from the specified location | NOT TESTED |
 |     push                       |  Push an image to a specified destination | NOT TESTED |
 |     rename                     |  Rename a container | NOT TESTED |
