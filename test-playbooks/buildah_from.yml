@@ -1,0 +1,12 @@
+- hosts: buildah
+  become: yes
+
+  tasks:
+  - name: BUILDAH | Test output of "buildah from " command
+    buildah_from:
+      name: fedora
+    register: result
+
+  - debug: var=result
+
+
