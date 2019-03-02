@@ -59,7 +59,7 @@ EXAMPLES = '''
 
 
 '''
-def buildah_pull ( module, name, dest, authfile, cert-dir, quiet, signature-policy, tls-verify ): 
+def buildah_push ( module, name, dest, authfile, cert-dir, quiet, signature-policy, tls-verify ): 
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
@@ -135,7 +135,7 @@ def main():
     signature-policy  = params.get('signature-policy', '')
     tls-verify = params.get('tls-verify', '')
     
-    rc, out, err =  buildah_pull ( module, name, dest, authfile, cert-dir, quiet, signature-policy, tls-verify )
+    rc, out, err =  buildah_push ( module, name, dest, authfile, cert-dir, quiet, signature-policy, tls-verify )
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
