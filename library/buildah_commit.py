@@ -63,8 +63,8 @@ EXAMPLES = '''
 '''
 
 def buildah_commit(module, container, imgname, authfile, certdir,
-                   creds, compression, format, quiet, rm, signature-policy,
-                   squash, tls-verify):
+                   creds, compression, format, quiet, rm, signature_policy,
+                   squash, tls_verify):
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
@@ -138,9 +138,9 @@ def main():
             iidfile=dict(required=False, default=""),
             quiet=dict(required=False, default="no", type="bool"),
             rm=dict(required=False, default="no", type="bool"),
-            signature-policy=dict(required=False, default=""),
+            signature_policy=dict(required=False, default=""),
             squash=dict(required=False, default="no", type="bool"),
-            tls-verify=(required=False, default="no", type="bool")
+            tls_verify=(required=False, default="no", type="bool")
         ),
         supports_check_mode = True
     )
@@ -156,13 +156,13 @@ def main():
     format = params.get('format', '')
     quiet = params.get('quiet', '')
     rm = params.get('rm', '')
-    signature-policy = params.get('signature-policy', '')
+    signature_policy = params.get('signature_policy', '')
     squash = params.get('squash', '')
-    tls-verify = params.get('tls-verify', '')
+    tls_verify = params.get('tls_verify', '')
     
     rc, out, err =  buildah_commit(module, container, imgname, authfile, certdir,
-                                   creds, compression, format, quiet, rm, signature-policy,
-                                   squash, tls-verify)
+                                   creds, compression, format, quiet, rm, signature_policy,
+                                   squash, tls_verify)
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
