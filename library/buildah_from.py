@@ -58,14 +58,14 @@ EXAMPLES = '''
   - debug: var=result.stdout_lines
 
 '''
-def buildah_from ( module, host, authfile, cap-add, cap-drop, cert-dir, cgroup-parent, cidfile, cni-config-dir, cni-plugin-path, cpu-period, cpu-quota, cpu-shares, cpuset-cpus, cpuset-mems, creds, ipc, isolation, memory, memory-swap, name, network, pid, pull, pull-always, quiet, security-opt, shm-size, signature-policy, tls-verify, ulimit, userns, userns-uid-map, userns-gid-map, userns-uid-map-user, userns-gid-map-group, uts, volume ): 
+def buildah_from ( module, host, authfile, cap_add, cap_drop, cert_dir, cgroup_parent, cidfile, cni_config_dir, cni_plugin_path, cpu_period, cpu_quota, cpu_shares, cpuset_cpus, cpuset_mems, creds, ipc, isolation, memory, memory_swap, name, network, pid, pull, pull_always, quiet, security_options, shm_size, signature_policy, tls_verify, ulimit, userns, userns_uid_map, userns_gid_map, userns_uid_map_user, userns_gid_map_group, uts, volume ):
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
         buildah_basecmd = [buildah_bin, 'from']
 
     if host:
-        r_cmd = ['--add-host']
+        r_cmd = ['--add_host']
         buildah_basecmd.extend(r_cmd)
         r_cmd = [host]
         buildah_basecmd.extend(r_cmd)
@@ -77,29 +77,29 @@ def buildah_from ( module, host, authfile, cap-add, cap-drop, cert-dir, cgroup-p
         buildah_basecmd.extend(r_cmd)
 
     ## REVISIT - Multiple Entries
-    if cap-add:
-        r_cmd = ['--cap-add']
+    if cap_add:
+        r_cmd = ['--cap_add']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [cap-add]
+        r_cmd = [cap_add]
         buildah_basecmd.extend(r_cmd)
 
     ## REVISIT - Multiple Entries
-    if cap-drop:
-        r_cmd = ['--cap-drop']
+    if cap_drop:
+        r_cmd = ['--cap_drop']
         buildah_basecmd.extend(r_cmd)
         r_cmd = [host]
         buildah_basecmd.extend(r_cmd)
 
-    if cert-dir:
-        r_cmd = ['--cert-dir']
+    if cert_dir:
+        r_cmd = ['--cert_dir']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [cert-dir]
+        r_cmd = [cert_dir]
         buildah_basecmd.extend(r_cmd)
 
-    if cgroup-parent:
-        r_cmd = ['--cgroup-parent']
+    if cgroup_parent:
+        r_cmd = ['--cgroup_parent']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [cgroup-parent]
+        r_cmd = [cgroup_parent]
         buildah_basecmd.extend(r_cmd)
 
     if cidfile:
@@ -108,46 +108,46 @@ def buildah_from ( module, host, authfile, cap-add, cap-drop, cert-dir, cgroup-p
         r_cmd = [cidfile]
         buildah_basecmd.extend(r_cmd)
 
-    if cni-config-dir:
-        r_cmd = ['--cni-config-dir']
+    if cni_config_dir:
+        r_cmd = ['--cni_config_dir']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [cni-config-dir]
-        buildah_basecmd.extend(r_cmd)
-
-    if cni-plugin-path:
-        r_cmd = ['--cni-plugin-path']
-        buildah_basecmd.extend(r_cmd)
-        r_cmd = [cni-plugin-path]
+        r_cmd = [cni_config_dir]
         buildah_basecmd.extend(r_cmd)
 
-    if cpu-period:
-        r_cmd = ['--cpu-period']
+    if cni_plugin_path:
+        r_cmd = ['--cni_plugin_path']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [cpu-period]
-        buildah_basecmd.extend(r_cmd)
-
-    if cpu-quota:
-        r_cmd = ['--cpu-quota']
-        buildah_basecmd.extend(r_cmd)
-        r_cmd = [cpu-quota]
+        r_cmd = [cni_plugin_path]
         buildah_basecmd.extend(r_cmd)
 
-    if cpu-shares:
-        r_cmd = ['--cpu-shares']
+    if cpu_period:
+        r_cmd = ['--cpu_period']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [cpu-shares]
-        buildah_basecmd.extend(r_cmd)
-
-    if cpuset-cpus:
-        r_cmd = ['--cpuset-cpus']
-        buildah_basecmd.extend(r_cmd)
-        r_cmd = [cpuset-cpus]
+        r_cmd = [cpu_period]
         buildah_basecmd.extend(r_cmd)
 
-    if cpuset-mems:
-        r_cmd = ['--cpuset-mems']
+    if cpu_quota:
+        r_cmd = ['--cpu_quota']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [cpuset-mems]
+        r_cmd = [cpu_quota]
+        buildah_basecmd.extend(r_cmd)
+
+    if cpu_shares:
+        r_cmd = ['--cpu_shares']
+        buildah_basecmd.extend(r_cmd)
+        r_cmd = [cpu_shares]
+        buildah_basecmd.extend(r_cmd)
+
+    if cpuset_cpus:
+        r_cmd = ['--cpuset_cpus']
+        buildah_basecmd.extend(r_cmd)
+        r_cmd = [cpuset_cpus]
+        buildah_basecmd.extend(r_cmd)
+
+    if cpuset_mems:
+        r_cmd = ['--cpuset_mems']
+        buildah_basecmd.extend(r_cmd)
+        r_cmd = [cpuset_mems]
         buildah_basecmd.extend(r_cmd)
 
     if creds:
@@ -174,10 +174,10 @@ def buildah_from ( module, host, authfile, cap-add, cap-drop, cert-dir, cgroup-p
         r_cmd = [memory]
         buildah_basecmd.extend(r_cmd)
 
-    if memory-swap:
-        r_cmd = ['--memory-swap']
+    if memory_swap:
+        r_cmd = ['--memory_swap']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [memory-swap]
+        r_cmd = [memory_swap]
         buildah_basecmd.extend(r_cmd)
 
     if network:
@@ -196,36 +196,36 @@ def buildah_from ( module, host, authfile, cap-add, cap-drop, cert-dir, cgroup-p
         r_cmd = ['--pull']
         buildah_basecmd.extend(r_cmd)
 
-    if pull-always:
-        r_cmd = ['--pull-always']
+    if pull_always:
+        r_cmd = ['--pull_always']
         buildah_basecmd.extend(r_cmd)
 
     if quiet:
         r_cmd = ['--quiet']
         buildah_basecmd.extend(r_cmd)
 
-    if security-opt:
-        r_cmd = ['--security-opt']
+    if security_options:
+        r_cmd = ['--security_opt']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [security-opt]
-        buildah_basecmd.extend(r_cmd)
-
-    if shm-size:
-        r_cmd = ['--shm-size']
-        buildah_basecmd.extend(r_cmd)
-        r_cmd = [shm-size]
+        r_cmd = [security_options]
         buildah_basecmd.extend(r_cmd)
 
-    if signature-policy:
-        r_cmd = ['--signature-policy']
+    if shm_size:
+        r_cmd = ['--shm_size']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [signature-policy]
+        r_cmd = [shm_size]
         buildah_basecmd.extend(r_cmd)
 
-    if tls-verify:
-        r_cmd = ['--tls-verify']
+    if signature_policy:
+        r_cmd = ['--signature_policy']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [tls-verify]
+        r_cmd = [signature_policy]
+        buildah_basecmd.extend(r_cmd)
+
+    if tls_verify:
+        r_cmd = ['--tls_verify']
+        buildah_basecmd.extend(r_cmd)
+        r_cmd = [tls_verify]
         buildah_basecmd.extend(r_cmd)
 
     if ulimit:
@@ -240,28 +240,28 @@ def buildah_from ( module, host, authfile, cap-add, cap-drop, cert-dir, cgroup-p
         r_cmd = [userns]
         buildah_basecmd.extend(r_cmd)
 
-    if userns-uid-map:
-        r_cmd = ['--userns-uid-map']
+    if userns_uid_map:
+        r_cmd = ['--userns_uid_map']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [userns-uid-map]
-        buildah_basecmd.extend(r_cmd)
-
-    if userns-gid-map:
-        r_cmd = ['--userns-gid-map']
-        buildah_basecmd.extend(r_cmd)
-        r_cmd = [userns-gid-map]
+        r_cmd = [userns_uid_map]
         buildah_basecmd.extend(r_cmd)
 
-    if userns-uid-map-user:
-        r_cmd = ['--userns-uid-map-user']
+    if userns_gid_map:
+        r_cmd = ['--userns_gid_map']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [userns-uid-map-user]
+        r_cmd = [userns_gid_map]
         buildah_basecmd.extend(r_cmd)
 
-    if userns-gid-map-group:
-        r_cmd = ['--userns-gid-map-group']
+    if userns_uid_map_user:
+        r_cmd = ['--userns_uid_map_user']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [userns-gid-map-group]
+        r_cmd = [userns_uid_map_user]
+        buildah_basecmd.extend(r_cmd)
+
+    if userns_gid_map_group:
+        r_cmd = ['--userns_gid_map_group']
+        buildah_basecmd.extend(r_cmd)
+        r_cmd = [userns_gid_map_group]
         buildah_basecmd.extend(r_cmd)
 
     if uts:
@@ -290,38 +290,38 @@ def main():
             name=dict(required=True),
             host=dict(required=False),
             authfile=dict(required=False, default=""),
-            cap-add=dict(required=False),
-            cap-drop=dict(required=False),
-            cert-dir=dict(required=False),
-            cgroup-parent=dict(required=False),
+            cap_add=dict(required=False),
+            cap_drop=dict(required=False),
+            cert_dir=dict(required=False),
+            cgroup_parent=dict(required=False),
             cidfile=dict(required=False),
-            cni-config-dir=dict(required=False),
-            cni-plugin-path=dict(required=False),
-            cpu-period=dict(required=False, type="int"),
-            cpu-quota=dict(required=False, type="int"),
-            cpu-shares=dict(required=False, type="int"),
-            cpuset-cpus=dict(required=False),
-            cpuset-mems=dict(required=False),
+            cni_config_dir=dict(required=False),
+            cni_plugin_path=dict(required=False),
+            cpu_period=dict(required=False, type="int"),
+            cpu_quota=dict(required=False, type="int"),
+            cpu_shares=dict(required=False, type="int"),
+            cpuset_cpus=dict(required=False),
+            cpuset_mems=dict(required=False),
             creds=dict(required=False),
             ipc=dict(required=False),
             isolation=dict(required=False),
             memory=dict(required=False),
-            memory-swap=dict(required=False),
+            memory_swap=dict(required=False),
             net=dict(required=False),
             pid=dict(required=False),
             pull=dict(required=False),
-            pull-always=dict(required=False),
+            pull_always=dict(required=False),
             quiet=dict(required=False, default="no", type="bool"),
-            security-options=dict(required=False),
-            shm-size=dict(required=False),
-            signature-policy=dict(required=False),
-            tls-verify=dict(required=False),
+            security_options=dict(required=False),
+            shm_size=dict(required=False),
+            signature_policy=dict(required=False),
+            tls_verify=dict(required=False),
             ulimit=dict(required=False),
             userns=dict(required=False),
-            userns-uid-map=dict(required=False),
-            userns-gid-map=dict(required=False),
-            userns-uid-map-user=dict(required=False),
-            userns-gid-map-group=dict(required=False),
+            userns_uid_map=dict(required=False),
+            userns_gid_map=dict(required=False),
+            userns_uid_map_user=dict(required=False),
+            userns_gid_map_group=dict(required=False),
             uts=dict(required=False),
             volume=dict(required=False)
         ),
@@ -333,43 +333,43 @@ def main():
     name = params.get('name', '')
     host = params.get('host', '')
     authfile = params.get('authfile', '')
-    cap-add = params.get('cap-add', '')
-    cap-drop = params.get('cap-drop', '')
-    cert-dir = params.get('cert-dir', '')
-    cgroup-parent = params.get('cgroup-parent', '')
+    cap_add = params.get('cap_add', '')
+    cap_drop = params.get('cap_drop', '')
+    cert_dir = params.get('cert_dir', '')
+    cgroup_parent = params.get('cgroup_parent', '')
     cidfile = params.get('cidfile', '')
-    cni-config-dir = params.get('cni-config-dir', '')
-    cni-plugin-path = params.get('cni-plugin-path', '')
-    cpu-period = params.get('cpu-period', '')
-    cpu-quota = params.get('cpu-quota', '')
-    cpu-shares = params.get('cpu-shares', '')
-    cpuset-cpus = params.get('cpuset-cpus', '')
-    cpuset-mems = params.get('cpuset-mems', '')
+    cni_config_dir = params.get('cni_config_dir', '')
+    cni_plugin_path = params.get('cni_plugin_path', '')
+    cpu_period = params.get('cpu_period', '')
+    cpu_quota = params.get('cpu_quota', '')
+    cpu_shares = params.get('cpu_shares', '')
+    cpuset_cpus = params.get('cpuset_cpus', '')
+    cpuset_mems = params.get('cpuset_mems', '')
     creds = params.get('creds', '')
     ipc = params.get('ipc', '')
     isolation = params.get('isolation', '')
     memory = params.get('memory', '')
-    memory-swap = params.get('memory-swap', '')
-    net = params.get('net', '')
+    memory_swap = params.get('memory_swap', '')
+    network = params.get('network', '')
     pid = params.get('pid', '')
     pull = params.get('pull', '')
-    pull-always = params.get('pull-always', '')
+    pull_always = params.get('pull_always', '')
     quiet = params.get('quiet', '')
-    security-options = params.get('security-options', '')
-    shm-size = params.get('shm-size', '')
-    signature-policy = params.get('signature-policy', '')
-    tls-verify = params.get('tls-verify', '')
+    security_options = params.get('security_options', '')
+    shm_size = params.get('shm_size', '')
+    signature_policy = params.get('signature_policy', '')
+    tls_verify = params.get('tls_verify', '')
     ulimit = params.get('ulimit', '')
     userns = params.get('userns', '')
-    userns-uid-map = params.get('userns-uid-map', '')
-    userns-gid-map = params.get('userns-gid-map, '')
-    userns-uid-map-user = params.get('userns-uid-map-user', '')
-    userns-gid-map-group = params.get('userns-gid-map-group', '')
+    userns_uid_map = params.get('userns_uid_map', '')
+    userns_gid_map = params.get('userns_gid_map', '')
+    userns_uid_map_user = params.get('userns_uid_map_user', '')
+    userns_gid_map_group = params.get('userns_gid_map_group', '')
     uts = params.get('uts', '')
     volume = params.get('volume', '')
 
     
-    rc, out, err =  buildah_from ( module, host, authfile, cap-add, cap-drop, cert-dir, cgroup-parent, cidfile, cni-config-dir, cni-plugin-path, cpu-period, cpu-quota, cpu-shares, cpuset-cpus, cpuset-mems, creds, ipc, isolation, memory, memory-swap, name, network, pid, pull, pull-always, quiet, security-opt, shm-size, signature-policy, tls-verify, ulimit, userns, userns-uid-map, userns-gid-map, userns-uid-map-user, userns-gid-map-group, uts, volume )
+    rc, out, err =  buildah_from ( module, host, authfile, cap_add, cap_drop, cert_dir, cgroup_parent, cidfile, cni_config_dir, cni_plugin_path, cpu_period, cpu_quota, cpu_shares, cpuset_cpus, cpuset_mems, creds, ipc, isolation, memory, memory_swap, name, network, pid, pull, pull_always, quiet, security_options, shm_size, signature_policy, tls_verify, ulimit, userns, userns_uid_map, userns_gid_map, userns_uid_map_user, userns_gid_map_group, uts, volume )
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
