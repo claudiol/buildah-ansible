@@ -71,13 +71,13 @@ def buildah_rm ( module, name, all ):
         buildah_bin = module.get_bin_path('buildah')
         buildah_basecmd = [buildah_bin, 'rm']
 
-    if name:
+    if all:
+        r_cmd = ['--all']
+        buildah_basecmd.extend(r_cmd)
+    elif name:
         r_cmd = [name]
         buildah_basecmd.extend(r_cmd)
 
-    if all:
-        r_cmd = ['--all]
-        buildah_basecmd.extend(r_cmd)
 
     return module.run_command(buildah_basecmd) 
 
@@ -97,7 +97,7 @@ def main():
     name = params.get('name', '')
     all = params.get('all', '')
     
-    rc, out, err =  buildah_rename ( module, name, all )
+    rc, out, err =  buildah_rm ( module, name, all )
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
