@@ -48,6 +48,15 @@
 
   - debug: var=result.stdout_lines
 
+
+  - name: BUILDAH | Test output of "buildah images --noheading <image_name>" command
+    buildah_images:
+      name: docker.io/library/fedora
+      heading: yes
+    register: result
+
+  - debug: var=result.stdout_lines
+
   - name: BUILDAH | Test output of ALL "buildah images" command
     buildah_images:
       name:    # Empty name: results in ALL images - REVISIT
