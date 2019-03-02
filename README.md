@@ -32,7 +32,7 @@ The targeted functionality planned will include the following:
 |    ----------------            | -----------              | ------ |
 |     add                        |  Add content to the container | TESTED |
 |     build-using-dockerfile, bud|  Build an image using instructions in a Dockerfile | NOT TESTED |
-|     commit                     |  Create an image from a working container | NOT TESTED |
+|     commit                     |  Create an image from a working container | TESTED |
 |     config                     |  Update image configuration settings | NOT TESTED |
 |     containers                 |  List working containers and their base images | TESTED |
 |     copy                       |  Copy content into the container | TESTED |
@@ -41,7 +41,7 @@ The targeted functionality planned will include the following:
 |     inspect                    |  Inspects the configuration of a container or image | TESTED |
 |     mount                      |  Mount a working container's root filesystem | TESTED |
 |     pull                       |  Pull an image from the specified location | NOT TESTED |
-|     push                       |  Push an image to a specified destination | NOT TESTED |
+|     push                       |  Push an image to a specified destination | TESTED |
 |     rename                     |  Rename a container | NOT TESTED |
 |     rm, delete                 |  Remove one or more working containers | TESTED |
 |     rmi                        |  removes one or more images from local storage | NOT TESTED |
