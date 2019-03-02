@@ -90,7 +90,7 @@ def main():
     name = params.get('name', '')
     truncate = params.get('truncate', '')
     
-    rc, out, err =  buildah_add(module, name, truncate)
+    rc, out, err =  buildah_mount(module, name, truncate)
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
