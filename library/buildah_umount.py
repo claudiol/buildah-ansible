@@ -66,18 +66,18 @@ EXAMPLES = '''
 
 
 '''
-def buildah_umount ( module, container_name, all ):
+def buildah_umount ( module, name, all ):
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
         buildah_basecmd = [buildah_bin, 'rm']
 
-    if container_name:
-        r_cmd = [container_name]
-        buildah_basecmd.extend(r_cmd)
-
     if all:
         r_cmd = ['--all']
+        buildah_basecmd.extend(r_cmd)
+
+    if name:
+        r_cmd = [name]
         buildah_basecmd.extend(r_cmd)
 
     return module.run_command(buildah_basecmd) 
@@ -87,7 +87,7 @@ def main():
 
     module = AnsibleModule(
         argument_spec = dict(
-            container_name=dict(required=False),
+            name=dict(required=False),
             all=dict(required=False, default="no", type="bool")
         ),
         supports_check_mode = True
@@ -95,10 +95,10 @@ def main():
 
     params = module.params
 
-    container_name = params.get('container_name', '')
+    name = params.get('name', '')
     all = params.get('all', '')
 
-    rc, out, err =  buildah_rename ( module, container_name, new_container_name )
+    rc, out, err =  buildah_umount ( module, name, all )
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
