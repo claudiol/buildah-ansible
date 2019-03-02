@@ -2,7 +2,7 @@
 
 #!/usr/bin/python -tt
 # -*- coding: utf-8 -*-
-# (c) 2012, Red Hat, Inc
+# (c) 2019, Red Hat, Inc
 # Based on yum module written by Seth Vidal <skvidal at fedoraproject.org>
 # (c) 2014, Epic Games, Inc.
 # Written by Lester Claudio <claudiol at redhat.com>
@@ -34,11 +34,13 @@ ANSIBLE_METADATA = {'status': ['stableinterface'],
 
 DOCUMENTATION = '''
 ---
-module: buildah
+module: buildah_copy
 version_added: historical
-short_description: Allows the creation of Open Container Initiative (OCI) containers using the buildah command
+short_description: buildah-copy  - Copies the contents of a file, URL, or directory into a container's working
+       directory.
 description:
-     - Creates, removes, and lists OCI containers using the buildah container manager. 
+     - buildah-copy  - Copies the contents of a file, URL, or directory into a container's working
+       directory.
 options:
 
 # informational: requirements for nodes
@@ -49,33 +51,32 @@ author:
 '''
 
 EXAMPLES = '''
-  - name: BUILDAH | Test output of "buildah add <image_name>" command
-    buildah_add:
-      truncate: yes
+  - name: BUILDAH | Test output of "buildah copy <container_name/id> source destination" command
+    buildah_copy:
+      name: c3897c41ac18    # <=== target container
+      src: '/tmp/file.conf" # <=== file in target buildah host
     register: result
 
   - debug: var=result.stdout_lines
 
-  - name: BUILDAH | Test JSON output of "buildah add --json <image_name>" command
-    buildah_add:
-      json: yes
+  - name: BUILDAH | Test output of "buildah copy <container_name/id> source destination" command
+    buildah_copy:
+      name: c3897c41ac18    # <=== target container
+      src: '/tmp/file.conf" # <=== file that exists on target buildah host
+      dest: '/etc/file.com' # <=== destination file on target container storage 
     register: result
 
   - debug: var=result.stdout_lines
 
-  - name: BUILDAH | Test output of "buildah add --notruncate <image_name>" command
-    buildah_add:
-      truncate: no
+  - name: BUILDAH | Test output of "buildah copy <container_name/id> source " command
+    buildah_copy:
+      name: c3897c41ac18    # <=== target container
+      src: '/tmp/file.conf" # <=== file in target buildah host
+      chown: 'claudiol:claudiol' # <=== Change owner:group
     register: result
 
   - debug: var=result.stdout_lines
 
-  - name: BUILDAH | Test output of "buildah add --noheading <image_name>" command
-    buildah_add:
-      heading: no
-    register: result
-
-  - debug: var=result.stdout_lines
 
 '''
 def buildah_copy ( module, name, chown, quiet, src, dest ):
