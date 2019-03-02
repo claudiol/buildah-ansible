@@ -1,0 +1,18 @@
+- hosts: buildah
+  become: yes
+
+  tasks:
+  - name: BUILDAH | Test output of "buildah umount using container ID" command
+    buildah_umount:
+      name: c3897c41ac18
+    register: result
+
+  - debug: var=result
+
+  - name: BUILDAH | Test output of "buildah umount using container_name" command
+    buildah_umount:
+      all: yes
+    register: result
+
+  - debug: var=result
+
