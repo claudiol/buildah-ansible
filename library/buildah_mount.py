@@ -64,7 +64,7 @@ def buildah_mount ( module, name, truncate ):
         buildah_bin = module.get_bin_path('buildah')
         buildah_basecmd = [buildah_bin, 'mount']
 
-    if truncate:
+    if truncate != True:
         r_cmd = ['--notruncate']
         buildah_basecmd.extend(r_cmd)
 
