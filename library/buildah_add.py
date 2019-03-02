@@ -118,7 +118,7 @@ def main():
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
     else:
-        module.exit_json(changed=False, rc=rc, stdout=out, err = err )
+        module.fail_json( msg = err )
 
 # import module snippets
 from ansible.module_utils.basic import *
