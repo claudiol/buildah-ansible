@@ -24,6 +24,7 @@ The following modules are being developed:
  - buildah_rm.py
  - buildah_rmi.py
  - buildah_tag.py
+ - buildah_umount.py
 
 The targeted functionality planned will include the following:
 
