@@ -51,31 +51,14 @@ author:
 EXAMPLES = '''
   - name: BUILDAH | Test output of "buildah add <image_name>" command
     buildah_add:
-      truncate: yes
+      name: 32282b25dcb9
+      src: HelloWorld.txt
+      dest: /tmp/HelloWorld.txt
+      chown: 'root:root'
     register: result
 
   - debug: var=result.stdout_lines
 
-  - name: BUILDAH | Test JSON output of "buildah add --json <image_name>" command
-    buildah_add:
-      json: yes
-    register: result
-
-  - debug: var=result.stdout_lines
-
-  - name: BUILDAH | Test output of "buildah add --notruncate <image_name>" command
-    buildah_add:
-      truncate: no
-    register: result
-
-  - debug: var=result.stdout_lines
-
-  - name: BUILDAH | Test output of "buildah add --noheading <image_name>" command
-    buildah_add:
-      heading: no
-    register: result
-
-  - debug: var=result.stdout_lines
 
 '''
 def buildah_add ( module, name, chown, quiet, src, dest ):
