@@ -58,7 +58,7 @@ EXAMPLES = '''
 
 
 '''
-def buildah_pull ( module, name, authfile, cert_dir, quiet, signature-policy, tls_verify ): 
+def buildah_pull ( module, name, authfile, cert_dir, quiet, signature_policy, tls_verify ): 
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
