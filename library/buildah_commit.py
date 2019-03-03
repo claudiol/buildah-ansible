@@ -67,7 +67,7 @@ EXAMPLES = '''
 '''
 
 def buildah_commit(module, container, imgname, authfile, certdir,
-                   creds, compression, format, quiet, rm, signature_policy,
+                   creds, compression, format, iidfile, quiet, rm, signature_policy,
                    squash, tls_verify):
 
     if module.get_bin_path('buildah'):
@@ -144,7 +144,7 @@ def main():
             rm=dict(required=False, default="no", type="bool"),
             signature_policy=dict(required=False, default=""),
             squash=dict(required=False, default="no", type="bool"),
-            tls_verify=(required=False, default="no", type="bool")
+            tls_verify=dict(required=False, default="no", type="bool")
         ),
         supports_check_mode = True
     )
@@ -158,14 +158,15 @@ def main():
     creds = params.get('creds', '')
     compression = params.get('compression', '')
     format = params.get('format', '')
+    iidfile = params.get('iidfile', '')
     quiet = params.get('quiet', '')
     rm = params.get('rm', '')
     signature_policy = params.get('signature_policy', '')
     squash = params.get('squash', '')
     tls_verify = params.get('tls_verify', '')
     
-    rc, out, err =  buildah_commit(module, container, imgname, authfile, certdir,
-                                   creds, compression, format, quiet, rm, signature_policy,
+    rc, out, err =  buildah_commit(module, container, imgname, authfile, certdir, creds,
+                                   compression, format, iidfile, quiet, rm, signature_policy,
                                    squash, tls_verify)
 
     if rc == 0:

@@ -60,7 +60,7 @@ EXAMPLES = '''
 
 
 '''
-def buildah_push ( module, name, dest, authfile, cert_dir, quiet, signature_policy, tls_verify ): 
+def buildah_push ( module, name, dest, authfile, cert_dir, creds, quiet, signature_policy, tls_verify ): 
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
@@ -78,7 +78,7 @@ def buildah_push ( module, name, dest, authfile, cert_dir, quiet, signature_poli
         r_cmd = [cert_dir]
         buildah_basecmd.extend(r_cmd)
 
-    if authfile:
+    if creds:
         r_cmd = ['--creds']
         buildah_basecmd.extend(r_cmd)
         r_cmd = [creds]
@@ -115,11 +115,11 @@ def main():
         argument_spec = dict(
             name=dict(required=True),
             dest=dict(required=False),
-            authfile=(required=False),
-            cert_dir=(required=False),
-            creds=(required=False),
-            quiet=(required=False, default="no", type="bool"),
-            signature_policy=(required=False),
+            authfile=dict(required=False),
+            cert_dir=dict(required=False),
+            creds=dict(required=False),
+            quiet=dict(required=False, default="no", type="bool"),
+            signature_policy=dict(required=False),
             tls_verify=dict(required=False, default="no", type="bool")
         ),
         supports_check_mode = True
@@ -136,7 +136,7 @@ def main():
     signature_policy  = params.get('signature_policy', '')
     tls_verify = params.get('tls_verify', '')
     
-    rc, out, err =  buildah_push ( module, name, dest, authfile, cert_dir, quiet, signature_policy, tls_verify )
+    rc, out, err =  buildah_push ( module, name, dest, authfile, cert_dir, creds, quiet, signature_policy, tls_verify )
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
