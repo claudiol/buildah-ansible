@@ -4,4 +4,5 @@ python:
 cache: pip
 install:
   - pip install -r requirements.txt
-script: pytest library/*.py
+script:
+  - /bin/sh run_tests.sh
