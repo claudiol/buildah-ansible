@@ -34,11 +34,12 @@ ANSIBLE_METADATA = {'status': ['stableinterface'],
 
 DOCUMENTATION = '''
 ---
-module: buildah_mount
+module: buildah_pull
 version_added: historical
-short_description: Mount a working container's root filesystem
+short_description: buildah-pull - Creates a new working container using a specified image as a starting point.
 description:
-     - Mount a working container's root filesystem.
+     - Pulls an image based upon the specified image name.  Image names use a "transport":"details" format.
+
 options:
 
 # informational: requirements for nodes
@@ -49,16 +50,16 @@ author:
 '''
 
 EXAMPLES = '''
-  - name: BUILDAH | Test output of "buildah add <image_name>" command
-    buildah_mount:
-      truncate: yes
+  - name: BUILDAH | Test "buildah pull <image_name>" command
+    buildah_pull:
+      name: quay.io/ipbabble/myfedoratest
     register: result
 
   - debug: var=result.stdout_lines
 
 
 '''
-def buildah_pull ( module, name, authfile, cert_dir, quiet, signature_policy, tls_verify ): 
+def buildah_pull ( module, name, authfile, cert_dir, creds, quiet, signature_policy, tls_verify ): 
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
@@ -124,11 +125,11 @@ def main():
     authfile = params.get('authfile', '')
     cert_dir = params.get('cert_dir', '')
     creds = params.get('creds', '')
-    quiet = params.get('creds', '')
+    quiet = params.get('quiet', '')
     signature_policy  = params.get('signature_policy', '')
     tls_verify = params.get('tls_verify', '')
     
-    rc, out, err =  buildah_pull ( module, name, authfile, cert_dir, quiet, signature_policy, tls_verify )
+    rc, out, err =  buildah_pull ( module, name, authfile, cert_dir, creds, quiet, signature_policy, tls_verify )
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
