@@ -60,13 +60,13 @@ EXAMPLES = '''
   - debug: var=result.stdout_lines
 
 '''
-def buildah_config(module, name, annotation, arch, author, cmd,
-                   comment, created-by, domain, entrypoint,
-                   env, healthcheck, healthcheck-interval,
-                   healthcheck-retries, healthcheck-start-period,
-                   healthcheck-timeout, history-comment,
+def buildah_config ( module, name, annotation, arch, author, cmd,
+                   comment, created_by, domain, entrypoint,
+                   env, healthcheck, healthcheck_interval,
+                   healthcheck_retries, healthcheck_start_period,
+                   healthcheck_timeout, history_comment,
                    hostname, label, onbuild, os, port, shell,
-                   stop-signal, user, volume, workingdir):
+                   stop_signal, user, volume, workingdir):
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
@@ -102,10 +102,10 @@ def buildah_config(module, name, annotation, arch, author, cmd,
         r_cmd = [comment]
         buildah_basecmd.extend(r_cmd)
 
-    if created-by:
+    if created_by:
         r_cmd = ['--created-by']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [created-by]
+        r_cmd = [created_by]
         buildah_basecmd.extend(r_cmd)
 
     if domain:
@@ -132,34 +132,34 @@ def buildah_config(module, name, annotation, arch, author, cmd,
         r_cmd = [healthcheck]
         buildah_basecmd.extend(r_cmd)
 
-    if healthcheck-interval:
+    if healthcheck_interval:
         r_cmd = ['--healthcheck-interval']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [healthcheck-interval]
+        r_cmd = [healthcheck_interval]
         buildah_basecmd.extend(r_cmd)
 
-    if healthcheck-retries:
+    if healthcheck_retries:
         r_cmd = ['--healthcheck-retries']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [healthcheck-retries]
+        r_cmd = [healthcheck_retries]
         buildah_basecmd.extend(r_cmd)
 
-    if healthcheck-start-period:
+    if healthcheck_start_period:
         r_cmd = ['--healthcheck-start-period']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = healthcheck-start-period]
+        r_cmd = [healthcheck_start_period]
         buildah_basecmd.extend(r_cmd)
 
-    if healthcheck-timeout:
+    if healthcheck_timeout:
         r_cmd = ['--healthcheck-timeout']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [healthcheck-timeout]
+        r_cmd = [healthcheck_timeout]
         buildah_basecmd.extend(r_cmd)
 
-    if history-comment:
+    if history_comment:
         r_cmd = ['--history-comment']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [history-comment]
+        r_cmd = [history_comment]
         buildah_basecmd.extend(r_cmd)
 
     if hostname:
@@ -199,10 +199,10 @@ def buildah_config(module, name, annotation, arch, author, cmd,
         r_cmd = [shell]
         buildah_basecmd.extend(r_cmd)
 
-    if stop-signal:
+    if stop_signal:
         r_cmd = ['--stop-signal']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [stop-signal]
+        r_cmd = [stop_signal]
         buildah_basecmd.extend(r_cmd)
 
     if user:
@@ -241,23 +241,23 @@ def main():
             author=dict(required=False, default=""),
             cmd=dict(required=False, default=""),
             comment=dict(required=False, default=""),
-            created-by=dict(required=False, default=""),
+            created_by=dict(required=False, default=""),
             domain=dict(required=False, default=""),
             entrypoint=dict(required=False, default=""),
             env=dict(required=False, default=""),
             healthcheck=dict(required=False, default="NONE"),
-            healthcheck-interval=dict(required=False, type="int"),
-            healthcheck-retries=dict(required=False, type="int"),
-            healthcheck-start-period=dict(required=False, type="int"),
-            healthcheck-timeout=dict(required=False, type="int"),
-            history-comment=dict(required=False, default=""),
+            healthcheck_interval=dict(required=False, type="int"),
+            healthcheck_retries=dict(required=False, type="int"),
+            healthcheck_start_period=dict(required=False, type="int"),
+            healthcheck_timeout=dict(required=False, type="int"),
+            history_comment=dict(required=False, default=""),
             hostname=dict(required=False, default=""),
             label=dict(required=False, default=""),
             onbuild=dict(required=False),
             os=dict(required=False),
             port=dict(required=False),
             shell=dict(required=False),
-            stop-signal=dict(required=False),
+            stop_signal=dict(required=False),
             user=dict(rquired=False),
             volume=dict(required=False),
             workingdir=dict(required=False)
@@ -273,23 +273,23 @@ def main():
     author = params.get('author', '')
     cmd = params.get('cmd', '')
     comment = params.get('comment', '')
-    created-by = params.get('created-by', '')
+    created_by = params.get('created_by', '')
     domain = params.get('domain', '')
     entrypoint = params.get('entrypoint', '')
     env = params.get('env', '')
     healthcheck = params.get('env', '')
-    healthcheck-interval=params.get('heathcheck-interval', '')
-    healthcheck-retries=params.get('healthecheck-retries', '')
-    healthcheck-start-period=params.get('healcheck-start-period','')
-    healthcheck-timeout=params.get('healthcheck-timeout','')
-    history-comment=params.get('history-comment', '')
+    healthcheck_interval=params.get('heathcheck_interval', '')
+    healthcheck_retries=params.get('healthecheck_retries', '')
+    healthcheck_start_period=params.get('healcheck_start_period','')
+    healthcheck_timeout=params.get('healthcheck_timeout','')
+    history_comment=params.get('history_comment', '')
     hostname=params.get('hostname','')
     label=params.get('label', '')
     onbuild=params.get('onbuild','')
     os=params.get('os', '')
     port=params.get('port', '')
     shell=params.get('shell', '')
-    stop-signal=params.get('stop-signal', '')
+    stop_signal=params.get('stop_signal', '')
     user=params.get('user','')
     volume=params.get('volume', '')
     workingdir=params.get('workingdir', '')
@@ -297,12 +297,12 @@ def main():
 
     
     rc, out, err =  buildah_config(module, name, annotation, arch, author, cmd,
-                                   comment, created-by, domain, entrypoint,
-                                   env, healthcheck, healthcheck-interval,
-                                   healthcheck-retries, healthcheck-start-period,
-                                   healthcheck-timeout, history-comment,
+                                   comment, created_by, domain, entrypoint,
+                                   env, healthcheck, healthcheck_interval,
+                                   healthcheck_retries, healthcheck_start_period,
+                                   healthcheck_timeout, history_comment,
                                    hostname, label, onbuild, os, port, shell,
-                                   stop-signal, user, volume, workingdir)
+                                   stop_signal, user, volume, workingdir)
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
