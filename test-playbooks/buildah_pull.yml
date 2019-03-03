@@ -1,0 +1,10 @@
+- hosts: buildah
+  become: yes
+
+  tasks:
+  - name: BUILDAH | Test "buildah pull <image_name>" command
+    buildah_pull:
+      name: quay.io/ipbabble/myfedoratest
+    register: result
+
+  - debug: var=result.stdout_lines
