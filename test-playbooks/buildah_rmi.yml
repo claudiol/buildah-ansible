@@ -1,0 +1,32 @@
+- hosts: buildah
+  become: yes
+
+  tasks:
+  # - name: BUILDAH | Test output of "buildah rmi using --prune" command
+  #   buildah_rmi:
+  #     prune: yes
+  #   register: result
+  #   tags:
+  #     - prune
+
+  # - debug: var=result
+
+  - name: BUILDAH | Test output of "buildah rmi using container ID" command
+    buildah_rmi:
+      name: 6d5fcc734a3d
+      force: yes
+    register: result
+
+  - debug: var=result
+
+  - name: BUILDAH | Test output of "buildah rm using all option" command
+    buildah_rmi:
+      all: yes
+    register: result
+
+  - debug: var=result
+
+
+
+
+
