@@ -12,4 +12,3 @@ pycurl==7.43.0.2
 pyparsing==2.2.0
 pytest==3.3.1
 PyYAML==4.2b4
-yum-metadata-parser==1.1.4
