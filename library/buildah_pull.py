@@ -58,7 +58,7 @@ EXAMPLES = '''
 
 
 '''
-def buildah_pull ( module, name, authfile, cert-dir, quiet, signature-policy, tls-verify ): 
+def buildah_pull ( module, name, authfile, cert_dir, quiet, signature-policy, tls_verify ): 
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
@@ -70,25 +70,25 @@ def buildah_pull ( module, name, authfile, cert-dir, quiet, signature-policy, tl
         r_cmd = [authfile]
         buildah_basecmd.extend(r_cmd)
 
-    if cert-dir:
+    if cert_dir:
         r_cmd = ['--cert-dir']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [cert-dir]
+        r_cmd = [cert_dir]
         buildah_basecmd.extend(r_cmd)
 
-    if authfile:
+    if creds:
         r_cmd = ['--creds']
         buildah_basecmd.extend(r_cmd)
         r_cmd = [creds]
         buildah_basecmd.extend(r_cmd)
 
-    if signature-policy:
+    if signature_policy:
         r_cmd = ['--signature-policy']
         buildah_basecmd.extend(r_cmd)
-        r_cmd = [signature-policy]
+        r_cmd = [signature_policy]
         buildah_basecmd.extend(r_cmd)
 
-    if tls-verify:
+    if tls_verify:
         r_cmd = ['--tls-verify']
         buildah_basecmd.extend(r_cmd)
 
@@ -108,12 +108,12 @@ def main():
     module = AnsibleModule(
         argument_spec = dict(
             name=dict(required=True),
-            authfile=(required=False),
-            cert-dir=(required=False),
-            creds=(required=False),
-            quiet=(required=False, default="no", type="bool"),
-            signature-policy=(required=False),
-            tls-verify=dict(required=False, default="no", type="bool")
+            authfile=dict(required=False),
+            cert_dir=dict(required=False),
+            creds=dict(required=False),
+            quiet=dict(required=False, default="no", type="bool"),
+            signature_policy=dict(required=False),
+            tls_verify=dict(required=False, default="no", type="bool")
         ),
         supports_check_mode = True
     )
@@ -122,13 +122,13 @@ def main():
 
     name = params.get('name', '')
     authfile = params.get('authfile', '')
-    cert-dir = params.get('cert-dir', '')
+    cert_dir = params.get('cert_dir', '')
     creds = params.get('creds', '')
     quiet = params.get('creds', '')
-    signature-policy  = params.get('signature-policy', '')
-    tls-verify = params.get('tls-verify', '')
+    signature_policy  = params.get('signature_policy', '')
+    tls_verify = params.get('tls_verify', '')
     
-    rc, out, err =  buildah_pull ( module, name, authfile, cert-dir, quiet, signature-policy, tls-verify )
+    rc, out, err =  buildah_pull ( module, name, authfile, cert_dir, quiet, signature_policy, tls_verify )
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
