@@ -63,7 +63,7 @@ def buildah_rename ( module, container_name, new_container_name ):
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
-        buildah_basecmd = [buildah_bin, 'pull']
+        buildah_basecmd = [buildah_bin, 'rename']
 
     if container_name:
         r_cmd = [container_name]
