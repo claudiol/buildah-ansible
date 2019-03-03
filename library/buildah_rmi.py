@@ -70,11 +70,7 @@ def buildah_rmi ( module, name, all, force, prune ):
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
-        buildah_basecmd = [buildah_bin, 'rm']
-
-    if name:
-        r_cmd = [name]
-        buildah_basecmd.extend(r_cmd)
+        buildah_basecmd = [buildah_bin, 'rmi']
 
     if all:
         r_cmd = ['--all']
@@ -88,6 +84,11 @@ def buildah_rmi ( module, name, all, force, prune ):
         r_cmd = ['--prune']
         buildah_basecmd.extend(r_cmd)
 
+    if name:
+        r_cmd = [name]
+        buildah_basecmd.extend(r_cmd)
+
+ 
     return module.run_command(buildah_basecmd) 
 
 
