@@ -109,7 +109,7 @@ def main():
     all = params.get('all', '')
     force = params.get('force', '')
     prune = params.get('prune', '')
-
+ 
     rc, out, err =  buildah_rmi ( module, name, all, force, prune )
 
     if rc == 0:
