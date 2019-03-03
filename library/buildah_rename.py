@@ -81,7 +81,7 @@ def main():
     module = AnsibleModule(
         argument_spec = dict(
             container_name=dict(required=True),
-            container_name=(required=False)
+            new_container_name=dict(required=False)
         ),
         supports_check_mode = True
     )
