@@ -77,15 +77,15 @@ def buildah_rmi ( module, name, all, force, prune ):
         buildah_basecmd.extend(r_cmd)
 
     if all:
-        r_cmd = ['--all]
+        r_cmd = ['--all']
         buildah_basecmd.extend(r_cmd)
 
     if force:
-        r_cmd = ['--force]
+        r_cmd = ['--force']
         buildah_basecmd.extend(r_cmd)
 
     if prune:
-        r_cmd = ['--prune]
+        r_cmd = ['--prune']
         buildah_basecmd.extend(r_cmd)
 
     return module.run_command(buildah_basecmd) 
@@ -110,7 +110,7 @@ def main():
     force = params.get('force', '')
     prune = params.get('prune', '')
 
-    rc, out, err =  buildah_rename ( module, name, all, force, prune )
+    rc, out, err =  buildah_rmi ( module, name, all, force, prune )
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )
