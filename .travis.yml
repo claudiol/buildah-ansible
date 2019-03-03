@@ -5,4 +5,4 @@ cache: pip
 install:
   - pip install -r requirements.txt
 script:
-  - /bin/sh run_tests.sh
+  - /bin/sh ./run_tests.sh
