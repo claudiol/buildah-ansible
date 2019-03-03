@@ -40,11 +40,11 @@ The targeted functionality planned will include the following:
 |     images                     |  List images in local storage | TESTED |
 |     inspect                    |  Inspects the configuration of a container or image | TESTED |
 |     mount                      |  Mount a working container's root filesystem | TESTED |
-|     pull                       |  Pull an image from the specified location | NOT TESTED |
+|     pull                       |  Pull an image from the specified location | TESTED |
 |     push                       |  Push an image to a specified destination | TESTED |
-|     rename                     |  Rename a container | NOT TESTED |
+|     rename                     |  Rename a container | TESTED |
 |     rm, delete                 |  Remove one or more working containers | TESTED |
-|     rmi                        |  removes one or more images from local storage | NOT TESTED |
+|     rmi                        |  removes one or more images from local storage | TESTED |
 |     tag                        |  Add an additional name to a local image | NOT TESTED |
 |     umount, unmount            |  Unmounts the root file system on the specified working containers | TESTED |
 |     unshare                    |  Run a command in a modified user namespace | NOT IMPLEMENTED |
