@@ -1,0 +1,81 @@
+- hosts: 192.168.56.103
+  become: yes
+  vars: 
+      imagename: sprintdemofedora
+      registryname: "quay.io/ipbabble"
+      registrycreds: ipbabble:Sl1g0#67 
+
+  tasks:
+  - name: BUILDAH | Test "buildah from scratch" command 
+    buildah_from:
+      name: scratch
+    register: from_result
+
+  - debug: var=from_result.stdout
+
+  - name: BUILDAH | Test "buildah mount" command
+    buildah_mount:
+      name: "{{ from_result.stdout | trim }}"
+    register: mount_result
+
+  - debug: var=mount_result.stdout
+
+  - name: installroot packages into scratch mount using DNF 
+    dnf: 
+      name: bash,coreutils
+      installroot: "{{ mount_result.stdout | trim }}"
+      releasever: 29
+      state: latest
+    register: dnf_result  
+
+  - debug: var=dnf_result
+
+  - name: Copy file to 
+    copy:
+      src: ./files/runecho.sh
+      dest: /tmp/runecho.sh
+      owner: root
+      group: root
+      mode: 0755
+    register: copy_result
+
+  - debug: var=copy_result
+
+  - name: Add a shell script to the image
+    buildah_add:
+      name: "{{ from_result.stdout | trim }}"
+      src: /tmp/runecho.sh
+      dest: /usr/local/bin/runecho.sh
+    register: add_result
+
+  - debug: var=add_result
+
+  - name: Configure the container meta data
+    buildah_config:
+      name: "{{ from_result.stdout | trim }}"
+      author: ansible-buildah demo
+      created_by: ansibles-buildah demo
+      comment: This is a bash shell image.
+      entrypoint: /usr/local/bin/runecho.sh
+    register: config_result
+
+  - debug: var=config_result
+
+  - name: Commit container to an image
+    buildah_commit:
+      container: "{{ from_result.stdout | trim }}"
+      imgname: "{{ imagename }}"
+    register: commit_result
+
+  - debug: var=commit_result
+
+  - name: Push image to Registry
+    buildah_push:
+      name: "{{ imagename }}"
+      dest: "{{ registryname }}/{{ imagename }}"
+      creds: "{{ registrycreds }}"
+    tags:
+      - push
+    register: push_result
+
+  - debug: var=push_result
