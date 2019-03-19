@@ -1,0 +1,18 @@
+image:
+  name: myfedorapy
+  from: quay.io/fedora:latest
+  packages: python
+  copy: library/buildahr.py /tmp
+  run:
+  config:
+    author: ipbabble
+  cmd: python --version
+
+image:
+  name: myfedoraj
+  from: quay.io/fedora:latest
+  packages: java
+  copy: 
+  config:
+    author: ipbabble
+  cmd: java --version

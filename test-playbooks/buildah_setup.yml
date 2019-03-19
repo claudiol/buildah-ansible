@@ -1,0 +1,16 @@
+- hosts: 192.168.56.103
+  become: yes
+  tasks:
+
+  - name: Make sure Buildah,Python and libselinux-python are installed on the machine 
+    dnf: 
+      name: buildah,python,libselinux-python
+      state: latest
+    register: dnf_result  
+
+  - debug: var=dnf_result
+
+  - name: Run on SELinux enforcing
+    selinux:
+      policy: targeted
+      state: enforcing
