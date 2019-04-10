@@ -25,8 +25,9 @@ import os
 import platform
 import tempfile
 import shutil
+import ntpath
 
-
+from ansible.module_utils._text import to_bytes, to_native
 
 ANSIBLE_METADATA = {'status': ['stableinterface'],
                     'supported_by': 'core',
@@ -81,6 +82,8 @@ EXAMPLES = '''
 '''
 def buildah_copy ( module, name, chown, quiet, src, dest ):
 
+    buildah_basecmd = []
+    
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
         buildah_basecmd = [buildah_bin, 'copy']
@@ -100,8 +103,29 @@ def buildah_copy ( module, name, chown, quiet, src, dest ):
         buildah_basecmd.extend(r_cmd) 
 
     if src:
-        r_cmd = [src]
-        buildah_basecmd.extend(r_cmd) 
+        if 'local:' in src:
+            # The filename contains local: which means we will copy the file from the local system
+            # Let's split the file
+            _, buildah_filename = src.split(":")
+
+            # Let's stat the filename
+            try:
+                statinfo = os.stat(buildah_filename)
+
+                buildah_basename=ntpath.basename(buildah_filename)
+                buildah_tmp_path="/tmp/%s" % (buildah_basename)
+
+                scp_command="/usr/bin/scp %s %s" % (buildah_filename, dest)
+                
+                return module.run_command(scp_command)
+
+            except Exception as e:
+                 module.exit_json(changed=False, rc=1, err = e )
+
+
+        else:
+            r_cmd = [src]
+            buildah_basecmd.extend(r_cmd) 
 
     if dest:
         r_cmd = [dest]
@@ -130,7 +154,9 @@ def main():
     quiet = params.get('quiet', '')
     src = params.get('src', '')
     dest = params.get('dest', '')
-    
+
+
+
     rc, out, err =  buildah_copy(module, name, chown, quiet, src, dest)
 
     if rc == 0:
