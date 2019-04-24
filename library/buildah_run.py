@@ -64,7 +64,7 @@ EXAMPLES = '''
   - debug: var=result.stdout_lines
 
 '''
-def buildah_run ( module, name, command, cap_add, cap_drop, cni_config_dir, cni_plugin_path, hostname, ipc, isolation, network, pivot, pid, runtime, runtime_flag, security_options, user, uts, volume ):
+def buildah_run ( module, name, command, args, cap_add, cap_drop, cni_config_dir, cni_plugin_path, hostname, ipc, isolation, network, pivot, pid, runtime, runtime_flag, security_options, user, uts, volume ):
 
     if module.get_bin_path('buildah'):
         buildah_bin = module.get_bin_path('buildah')
@@ -138,13 +138,9 @@ def buildah_run ( module, name, command, cap_add, cap_drop, cni_config_dir, cni_
         buildah_basecmd.extend(r_cmd)
 
     if runtime_flag:
-        r_cmd = ['--runtime_flag]
+        r_cmd = ['--runtime_flag']
         buildah_basecmd.extend(r_cmd)
         r_cmd = [runtime_flag]
-        buildah_basecmd.extend(r_cmd)
-
-    if quiet:
-        r_cmd = ['--quiet']
         buildah_basecmd.extend(r_cmd)
 
     if security_options:
@@ -172,14 +168,17 @@ def buildah_run ( module, name, command, cap_add, cap_drop, cni_config_dir, cni_
         buildah_basecmd.extend(r_cmd)
 
 
-    if command:
-        r_cmd = [command]
-        buildah_basecmd.extend(r_cmd)
-
     if name:
         r_cmd = [name]
         buildah_basecmd.extend(r_cmd)
 
+    if command:
+        r_cmd = [command]
+        buildah_basecmd.extend(r_cmd)
+
+    if args:
+        r_cmd = [args]
+        buildah_basecmd.extend(r_cmd)
 
     return module.run_command(buildah_basecmd) 
 
@@ -190,6 +189,7 @@ def main():
         argument_spec = dict(
             name=dict(required=True),
             command=dict(required=True),
+            args = dict(required=False),
             cap_add=dict(required=False),
             cap_drop=dict(required=False),
             cni_config_dir=dict(required=False),
@@ -212,6 +212,7 @@ def main():
     params = module.params
 
     command = params.get('command', '')
+    args = params.get('args', '')
     name = params.get('name', '')
     cap_add = params.get('cap_add', '')
     cap_drop = params.get('cap_drop', '')
@@ -231,7 +232,7 @@ def main():
     volume = params.get('volume', '')
 
     
-    rc, out, err =  buildah_run ( module, name, command, cap_add, cap_drop, cni_config_dir, cni_plugin_path, hostname, ipc, isolation, network, pivot, pid, runtime, runtime_flag, security_options, user, uts, volume )
+    rc, out, err =  buildah_run ( module, name, command, args, cap_add, cap_drop, cni_config_dir, cni_plugin_path, hostname, ipc, isolation, network, pivot, pid, runtime, runtime_flag, security_options, user, uts, volume )
 
     if rc == 0:
         module.exit_json(changed=True, rc=rc, stdout=out, err = err )

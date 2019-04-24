@@ -1,0 +1,13 @@
+- hosts: buildah
+  become: yes
+
+  tasks:
+  - name: BUILDAH | Test output of "buildah run  <image name> command" command
+    buildah_run:
+      name: 8c85c9fab053
+      command: 'cat'
+      args: '/etc/resolv.conf'
+    register: result
+
+  - debug: var=result.stdout_lines
+
