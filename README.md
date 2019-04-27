@@ -23,6 +23,7 @@ The following modules are being developed:
  - buildah_rename.py
  - buildah_rm.py
  - buildah_rmi.py
+ - buildah_run.py
  - buildah_tag.py
  - buildah_umount.py
 
@@ -45,6 +46,7 @@ The targeted functionality planned will include the following:
 |     rename                     |  Rename a container | TESTED |
 |     rm, delete                 |  Remove one or more working containers | TESTED |
 |     rmi                        |  removes one or more images from local storage | TESTED |
+|     run                        |  Runs a specified command using the container's root filesystem as a root filesystem | TESTED |
 |     tag                        |  Add an additional name to a local image | NOT TESTED |
 |     umount, unmount            |  Unmounts the root file system on the specified working containers | TESTED |
 |     unshare                    |  Run a command in a modified user namespace | NOT IMPLEMENTED |
