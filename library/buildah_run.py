@@ -177,8 +177,14 @@ def buildah_run ( module, name, command, args, cap_add, cap_drop, cni_config_dir
         buildah_basecmd.extend(r_cmd)
 
     if args:
-        r_cmd = [args]
-        buildah_basecmd.extend(r_cmd)
+        if len(args) == 1:
+            r_cmd = args
+            buildah_basecmd.extend(r_cmd)
+        else:
+            for arg in args:
+                r_cmd = [arg]
+                buildah_basecmd.extend(r_cmd)
+
 
     return module.run_command(buildah_basecmd) 
 
@@ -189,7 +195,7 @@ def main():
         argument_spec = dict(
             name=dict(required=True),
             command=dict(required=True),
-            args = dict(required=False),
+            args = dict(required=False, type='list'),
             cap_add=dict(required=False),
             cap_drop=dict(required=False),
             cni_config_dir=dict(required=False),
