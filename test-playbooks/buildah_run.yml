@@ -20,3 +20,12 @@
 
   - debug: var=result.stdout_lines
 
+  - name: BUILDAH | 3 - Test output of "buildah run  <image name> command" command
+    buildah_run:
+      name: 8c85c9fab053
+      command: 'chmod'
+      args: ['a+r', '/tmp/test.py']
+    register: result
+
+  - debug: var=result.stdout_lines
+
