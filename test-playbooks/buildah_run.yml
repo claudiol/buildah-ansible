@@ -2,7 +2,16 @@
   become: yes
 
   tasks:
-  - name: BUILDAH | Test output of "buildah run  <image name> command" command
+  - name: BUILDAH | 1 - Test output of "buildah run  <image name> command" command
+    buildah_run:
+      name: 8c85c9fab053
+      command: 'ls'
+      args: ['-la','/etc']
+    register: result
+
+  - debug: var=result.stdout_lines
+
+  - name: BUILDAH | 2 - Test output of "buildah run  <image name> command" command
     buildah_run:
       name: 8c85c9fab053
       command: 'cat'
